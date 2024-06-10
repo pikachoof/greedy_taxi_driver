@@ -1,0 +1,65 @@
+#include<bits/stdc++.h>
+#define mp make_pair
+#define mt make_tuple
+#define pii pair<int, int>
+
+using namespace std;
+
+int main() {
+	int n;
+	cin >> n;
+	int a[n] = {};
+	int p[n] = {};
+	bool used[n] = {};
+	vector<tuple<pii, pii, pii>> sol;
+	for (size_t i = 0; i < n; ++i) {
+		cin >> a[i];
+	}
+	for (size_t i = 0; i < n; ++i) {
+		cin >> p[i];
+	}
+	long long ans = 0;
+	for (size_t i = 0; i < n - 2; ++i) {
+		if (!(a[i] <= a[i + 1] && a[i + 1] <= a[i + 2]) && !(a[i] >= a[i + 1] && a[i + 1] >= a[i + 2])) {
+			ans += !used[i] * p[i];
+			ans += !used[i + 1] * p[i + 1];
+			ans += !used[i + 2] * p[i + 2];
+			sol.push_back(mt(mp(pos[i], used[i]), mp(pos[i + 1], used[i + 1]), mp(pos[i + 2], used[i + 2])));
+			used[i] = 1; used[i + 1] = 1; used[i + 2] = 1;
+		}
+	}
+
+	bool good = 1;
+	for (size_t i = 0; i < n - 3; ++i) {
+		for (size_t j = i; j < i + 3 && good; ++j) {
+			for (size_t k = j + 1; k < i + 3 && good; ++k) {
+				for (size_t l = k + 1; l < i + 3 && good; ++l) {
+					if (!(a[j] <= a[k] && a[k] <= a[l]) && !(a[j] >= a[k] && a[k] >= a[l])) {
+						ans += !used[j] * p[j];
+						ans += !used[k] * p[k];
+						ans += !used[l] * p[l];
+			sol.push_back(mt(mp(pos[j], used[j]), mp(pos[k], used[k]), mp(pos[l], used[l])));
+						used[j] = 1; used[k] = 1; used[l] = 1;
+					}
+				}
+			}
+		}
+	}
+	cout << ans << "\n";
+
+	for (size_t i = 0; i < sol.size(); ++i) {
+		tuple<pii, pii, pii> cp = sol[i];
+		for (auto &el : cp) { std::cout << el.first << ' '; }
+		std::cout << "\n";
+		for (auto &el : cp) {
+			if (!el.second) {
+				std::cout << el.first << " - можно использовать, так как еще не обслужен.";
+			} else {
+				std::cout << el.first << " - уже обслужен.";
+			}
+			std::cout << "\n";
+		}
+	}
+
+	return 0;
+}
