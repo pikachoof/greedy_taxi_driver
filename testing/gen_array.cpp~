@@ -5,21 +5,12 @@
 
 int main() {
     // Constants for array size and element range
-    /*
-	const int MIN_POINT_CNT = 10;
+    const int MIN_POINT_CNT = 10;
     const int MAX_POINT_CNT = 50;
     const int MIN_POS = 1000;
     const int MAX_POS = 1000000000;
     const int MIN_PRICE = 1000;
     const int MAX_PRICE = 1000000000;
-	*/
-
-	const int MIN_POINT_CNT = 1;
-    const int MAX_POINT_CNT = 5;
-    const int MIN_POS = 1;
-    const int MAX_POS = 100;
-    const int MIN_PRICE = 10;
-    const int MAX_PRICE = 100;
 
     // Seed the random number generator
     std::srand(static_cast<unsigned>(std::time(0)));
